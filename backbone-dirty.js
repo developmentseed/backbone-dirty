@@ -1,9 +1,10 @@
-// Exports Backbone with `Backbone.sync()` overridden for the server-side
+// Overrides Backbone with `Backbone.sync()` overridden for the server-side
 // context. Uses `node-dirty` for model persistence. Models are expected to
 // have a URL prefixed by their respective collection (e.g. `/{class}/{id}`)
 // and Collections retrieve their respective models based on this convention.
-module.exports = function(Backbone, filename) {
-    var dirty = require('node-dirty')(filename),
+module.exports = function(filename) {
+    var Backbone = require('backbone'),
+        dirty = require('node-dirty')(filename),
         loaded = false;
 
     // Helper function to get a URL from a Model or Collection as a property
@@ -78,5 +79,7 @@ module.exports = function(Backbone, filename) {
             });
         }
     };
+
+    return dirty;
 };
 

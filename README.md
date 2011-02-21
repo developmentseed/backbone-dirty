@@ -8,11 +8,11 @@ Backbone 0.3.3.
 
 ### Usage
 
-Pass the `Backbone` object and a filepath to the db (will be created if it
-doesn't exist yet) when calling `require()`.
+Pass a filepath to the db (will be created if it doesn't exist yet) when
+calling `require()`.
 
+    var dirty = require('backbone-dirty')('app.db');
     var Backbone = require('backbone');
-    require('backbone-dirty')(Backbone, 'app.db');
 
     // Backbone.sync will now load and save models from app.db.
 
