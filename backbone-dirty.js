@@ -46,16 +46,16 @@ module.exports = function(filename) {
             dirty.set(
                 getUrl(model),
                 model.toJSON(),
-                function(err, model) {
-                    return err ? error(err) : success(model);
+                function(err) {
+                    return err ? error(err) : success({});
                 }
             );
             break;
         case 'delete':
             dirty.rm(
                 getUrl(model),
-                function(err, model) {
-                    return err ? error(err) : success(model);
+                function(err) {
+                    return err ? error(err) : success({});
                 }
             );
             break;
