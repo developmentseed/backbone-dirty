@@ -3,7 +3,8 @@
 // have a URL prefixed by their respective collection (e.g. `/{class}/{id}`)
 // and Collections retrieve their respective models based on this convention.
 module.exports = function(filename) {
-    var Backbone = require('backbone'),
+    var underscore = require('underscore')._,
+        Backbone = require('backbone'),
         dirty = require('node-dirty')(filename),
         loaded = false;
 
@@ -43,6 +44,9 @@ module.exports = function(filename) {
             break;
         case 'create':
         case 'update':
+            if (_.isEqual(dirty.get(getUrl(model)), model.toJSON())) {
+                return success({});
+            }
             dirty.set(
                 getUrl(model),
                 model.toJSON(),
@@ -52,6 +56,9 @@ module.exports = function(filename) {
             );
             break;
         case 'delete':
+            if (typeof dirty.get(getUrl(model)) === 'undefined') {
+                return success({});
+            }
             dirty.rm(
                 getUrl(model),
                 function(err) {
