@@ -2,11 +2,13 @@
 // context. Uses `node-dirty` for model persistence. Models are expected to
 // have a URL prefixed by their respective collection (e.g. `/{class}/{id}`)
 // and Collections retrieve their respective models based on this convention.
+var underscore = require('underscore')._,
+    Backbone = require('backbone');
+
+var dirty,
+    loaded = false;
 module.exports = function(filename) {
-    var underscore = require('underscore')._,
-        Backbone = require('backbone'),
-        dirty = require('node-dirty')(filename),
-        loaded = false;
+    dirty = dirty || require('node-dirty')(filename);
 
     // Helper function to get a URL from a Model or Collection as a property
     // or as a function.
