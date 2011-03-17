@@ -28,13 +28,13 @@ module.exports = function(filename) {
                 base = getUrl(model);
             if (model.id) {
                 data = dirty.get(base);
-                (data && success(data)) || error('Model not found.');
+                return data ? success(data) : error('Model not found.');
             } else {
                 data = [];
                 dirty.forEach(function(key, val) {
                     val && key.indexOf(base) === 0 && data.indexOf(val) === -1 && data.push(val);
                 });
-                success(data);
+                return success(data);
             }
             break;
         case 'create':
