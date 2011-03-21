@@ -68,9 +68,12 @@ module.exports = function(filename) {
     // the db immediately or must wait until the `load` event is emitted.
     dirty.on('load', function() { loaded[filename] = true });
 
-    return function(method, model, success, error) {
-        var deferred = function() { sync(method, model, success, error) };
-        loaded[filename] ? deferred() : dirty.on('load', deferred);
+    return {
+        dirty: dirty,
+        sync: function(method, model, success, error) {
+            var deferred = function() { sync(method, model, success, error) };
+            loaded[filename] ? deferred() : dirty.on('load', deferred);
+        }
     };
 };
 

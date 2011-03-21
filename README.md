@@ -12,7 +12,7 @@ Pass a filepath to the db (will be created if it doesn't exist yet) when
 calling `require()`.
 
     var Backbone = require('backbone');
-    Backbone.sync = require('backbone-dirty')('app.db');
+    Backbone.sync = require('backbone-dirty')('app.db').sync;
 
     // Backbone.sync will now load and save models from app.db.
 
