@@ -1,0 +1,11 @@
+{
+    "name": "backbone-dirty",
+    "version": "1.1.0",
+    "author": "Young Hahn",
+    "dependencies": {
+        "underscore": "1.1.x",
+        "dirty": "https://github.com/developmentseed/node-dirty/tarball/2c5ce02461906403082a442ecfe33f1201bc2f63"
+    },
+    "licenses": [{ "type": "BSD" }],
+    "main": "./backbone-dirty"
+}
