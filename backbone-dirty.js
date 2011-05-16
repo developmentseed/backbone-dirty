@@ -28,11 +28,17 @@ module.exports = function(filename) {
                 base = getUrl(model);
             if (model.id) {
                 data = dirty.get(base);
-                return data ? success(data) : error('Model not found.');
+                if (data) {
+                    return success(_(data).clone());
+                } else {
+                    return error(new Error('Model not found.'));
+                }
             } else {
                 data = [];
                 dirty.forEach(function(key, val) {
-                    val && key.indexOf(base) === 0 && data.indexOf(val) === -1 && data.push(val);
+                    if (val && key.indexOf(base) === 0 && !_(data).include(val)) {
+                        data.push(_(val).clone());
+                    }
                 });
                 return success(data);
             }
