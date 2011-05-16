@@ -28,7 +28,7 @@ module.exports = function(filename) {
                 base = getUrl(model);
             if (model.id) {
                 data = dirty.get(base);
-                return data ? success(data) : error('Model not found.');
+                return data ? success(data) : error(new Error('Model not found.'));
             } else {
                 data = [];
                 dirty.forEach(function(key, val) {
