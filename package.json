@@ -4,7 +4,7 @@
     "author": "Young Hahn",
     "dependencies": {
         "underscore": "1.1.x",
-        "dirty": "https://github.com/developmentseed/node-dirty/tarball/2c5ce02461906403082a442ecfe33f1201bc2f63"
+        "dirty": "https://github.com/felixge/node-dirty/tarball/51c6f867e8b177892d7083685e5f0a2978c4f385"
     },
     "licenses": [{ "type": "BSD" }],
     "main": "./backbone-dirty"
