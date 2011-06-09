@@ -42,9 +42,10 @@ module.exports = function(filename) {
             if (_.isEqual(dirty.get(getUrl(model)), model.toJSON())) {
                 return success({});
             }
+            var data = _(dirty.get(getUrl(model)) || {}).extend(model.toJSON());
             dirty.set(
                 getUrl(model),
-                model.toJSON(),
+                data,
                 function(err) {
                     return err ? error(err) : success({});
                 }
