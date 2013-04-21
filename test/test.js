@@ -58,103 +58,103 @@ var FRUITS = _({
 
 // Initial read check.
 exports['read'] = function() {
-    sync('read', ORANGE,
-        function success(resp) {
+    sync('read', ORANGE, {
+        success: function success(resp) {
             assert.ok(false, 'read: `orange` response should be error.');
         },
-        function error(resp) {
+        error: function error(resp) {
             assert.ok(resp instanceof Error, 'read: `orange` response should be error.');
         }
-    );
-    sync('read', APPLE,
-        function success(resp) {
+    });
+    sync('read', APPLE, {
+        success: function success(resp) {
             assert.equal(resp.name, 'McIntosh Apple', 'read: `apple` successfully.');
         },
-        function error(resp) {
+        error: function error(resp) {
             assert.ok(resp instanceof Error, 'read: `apple` successfully.');
         }
-    );
+    });
 };
 
 // Read a collection.
 exports['collection'] = function() {
-    sync('read', FRUITS,
-        function success(resp) {
+    sync('read', FRUITS, {
+        success: function success(resp) {
             assert.deepEqual(_(resp).pluck('id'), ['apple', 'melon'], 'read: `fruits` contains only fruits');
         },
-        function error(resp) {
+        error: function error(resp) {
             assert.ok(false, 'read: `fruits` contains only fruits');
         }
-    );
+    });
 };
 
 // Full crud cycle.
 exports['create'] = function(beforeExit) {
     var methods = {
         'create': function() {
-            sync('create', BANANA,
-                function success(resp) {
+            sync('create', BANANA, {
+                success: function success(resp) {
                     assert.deepEqual(resp, {}, 'create: `banana` response should be {}.');
                     methods.cRead();
                 },
-                function error(resp) {
+                error: function error(resp) {
                     assert.ok(false, 'create: `banana` response should be {}.');
                 }
-            );
+            });
         },
         'cRead': function() {
-            sync('read', BANANA,
-                function success(resp) {
+            sync('read', BANANA, {
+                success: function success(resp) {
                     assert.equal(resp.name, 'Yellow Banana', 'create: `banana` read successfully.');
                     methods.update();
                 },
-                function error(resp) {
+                error: function error(resp) {
                     assert.ok(false, 'create: `banana` read successfully.');
                 }
-            );
+            });
         },
         'update': function() {
-            sync('update', _(_(BANANA).clone()).extend({ name: 'Brown Banana' }),
-                function success(resp) {
+            sync('update', _(_(BANANA).clone()).extend({ name: 'Brown Banana' }), {
+                success: function success(resp) {
                     assert.deepEqual(resp, {}, 'update: `banana` response should be {}.');
                     methods.uRead();
                 },
-                function error(resp) {
+                error: function error(resp) {
                     assert.ok(false, 'update: `banana` response should be {}.');
                 }
-            );
+            });
         },
         'uRead': function() {
-            sync('read', BANANA,
-                function success(resp) {
+            sync('read', BANANA, {
+                success: function success(resp) {
                     assert.equal(resp.name, 'Brown Banana', 'update: `banana` read successfully.');
                     methods.delete();
                 },
-                function error(resp) {
+                error: function error(resp) {
                     assert.ok(false, 'update: `banana` read successfully.');
                 }
-            );
+            });
         },
         'delete': function() {
-            sync('delete', BANANA,
-                function success(resp) {
+            sync('delete', BANANA, {
+                success: function success(resp) {
                     assert.deepEqual(resp, {}, 'delete: `banana` response should be {}.');
                     methods.dRead();
                 },
-                function error(resp) {
+                error: function error(resp) {
                     assert.ok(false, 'delete: `banana` response should be {}.');
                 }
-            );
+            });
         },
         'dRead': function() {
-            sync('reread', BANANA,
-                function success(resp) {
+            sync('reread', BANANA, {
+                success: function success(resp) {
                     assert.deepEqual(false, 'reread: `banana` should return error.');
                 },
-                function error(resp) {
+                error: function error(resp) {
                     assert.ok(true, 'reread: `banana` should return error.');
                 }
-            );
+            });
         }
     };
     methods.create();
@@ -164,4 +164,3 @@ exports['create'] = function(beforeExit) {
         fs.unlinkSync(__dirname + '/test.db');
     });
 };
-

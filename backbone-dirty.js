@@ -21,7 +21,10 @@ module.exports = function(filename) {
     };
 
     // Sync implementation for `node-dirty`.
-    var sync = function(method, model, success, error) {
+    var sync = function(method, model, options) {
+        var success = options.success || function () {};
+        var error = options.error || function () {};
+
         switch (method) {
         case 'read':
             var data,
@@ -77,4 +80,3 @@ module.exports = function(filename) {
         }
     };
 };
-
